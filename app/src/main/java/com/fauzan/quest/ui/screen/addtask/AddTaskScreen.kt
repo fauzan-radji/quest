@@ -27,10 +27,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fauzan.quest.R
+import com.fauzan.quest.data.model.OneTimeTask
 import com.fauzan.quest.data.model.TaskPriority
 import com.fauzan.quest.di.Injection
 import com.fauzan.quest.ui.ViewModelFactory
@@ -38,7 +38,6 @@ import com.fauzan.quest.ui.component.DatePicker
 import com.fauzan.quest.ui.component.Dropdown
 import com.fauzan.quest.ui.component.TextField
 import com.fauzan.quest.ui.component.TimePicker
-import com.fauzan.quest.ui.theme.QuestTheme
 import com.fauzan.quest.utils.TimeUtils
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
@@ -46,6 +45,7 @@ import java.time.LocalTime
 
 @Composable
 fun AddTaskScreen(
+    scheduleAlarm: (OneTimeTask) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: AddTaskViewModel = viewModel(
         factory = ViewModelFactory(repository = Injection.provideRepository())
@@ -67,6 +67,9 @@ fun AddTaskScreen(
         onPriorityChange = { priority = it },
         onDueDateChange = { dueDate = it },
         onDueTimeChange = { dueTime = it },
+        onSave = {
+            viewModel.addTask(scheduleAlarm = scheduleAlarm)
+        },
         modifier = modifier.fillMaxSize()
     )
 }
@@ -83,6 +86,7 @@ fun AddTaskContent(
     onPriorityChange: (TaskPriority) -> Unit,
     onDueDateChange: (LocalDate) -> Unit,
     onDueTimeChange: (LocalTime) -> Unit,
+    onSave: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var dropdownExpanded by remember { mutableStateOf(false) }
@@ -178,7 +182,7 @@ fun AddTaskContent(
         }
         Spacer(modifier = Modifier.height(spacer))
         Button(
-            onClick = { /*TODO*/ },
+            onClick = onSave,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(text = "Save Task")
@@ -196,10 +200,10 @@ fun AddTaskContent(
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun AddTaskPreview() {
-    QuestTheme {
-        AddTaskScreen()
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun AddTaskPreview() {
+//    QuestTheme {
+//        AddTaskScreen()
+//    }
+//}

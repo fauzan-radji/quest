@@ -1,6 +1,8 @@
 package com.fauzan.quest.data
 
 import com.fauzan.quest.data.model.BaseTask
+import com.fauzan.quest.data.model.OneTimeTask
+import com.fauzan.quest.data.model.TaskPriority
 
 class Repository {
     private val tasks = mutableListOf<BaseTask>()
@@ -12,6 +14,24 @@ class Repository {
     }
 
     fun getTasks() = tasks
+
+    fun addTask(
+        title: String,
+        description: String,
+        priority: TaskPriority,
+        dueDateMillis: Long
+    ): OneTimeTask {
+        val id = tasks.size + 1
+        val task = OneTimeTask(
+            id = id,
+            title = title,
+            description = description,
+            priority = priority,
+            dueDateMillis = dueDateMillis
+        )
+        tasks.add(task)
+        return task
+    }
 
     companion object {
         @Volatile

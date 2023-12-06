@@ -8,11 +8,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.fauzan.quest.data.model.OneTimeTask
 import com.fauzan.quest.navigation.Navigation
 import com.fauzan.quest.ui.component.BottomBar
+import com.fauzan.quest.ui.screen.addtask.AddTaskScreen
+import com.fauzan.quest.ui.screen.home.HomeScreen
 
 @Composable
 fun MainApp(
+    scheduleAlarm: (OneTimeTask) -> Unit,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
@@ -27,10 +31,11 @@ fun MainApp(
             startDestination = Navigation.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            Navigation.items.forEach { navigation ->
-                composable(navigation.route) {
-                    navigation.screen()
-                }
+            composable(Navigation.Home.route) {
+                HomeScreen()
+            }
+            composable(Navigation.AddTask.route) {
+                AddTaskScreen(scheduleAlarm = scheduleAlarm)
             }
         }
     }

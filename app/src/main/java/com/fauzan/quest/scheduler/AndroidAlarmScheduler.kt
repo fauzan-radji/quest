@@ -1,6 +1,5 @@
 package com.fauzan.quest.scheduler
 
-import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -12,7 +11,7 @@ class AndroidAlarmScheduler(
 ) : AlarmScheduler {
 
     private val alarmManager = context.getSystemService(AlarmManager::class.java)
-    @SuppressLint("MissingPermission")
+
     override fun schedule(task: OneTimeTask) {
 
         val intent = Intent(context, AlarmReceiver::class.java).apply {

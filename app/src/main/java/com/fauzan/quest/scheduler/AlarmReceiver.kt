@@ -3,12 +3,13 @@ package com.fauzan.quest.scheduler
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 
 class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val taskId = intent?.getIntExtra(EXTRA_TASK_ID, -1) ?: -1
         if (taskId == -1) return
-        println("Task $taskId is due!")
+        Log.d("AlarmReceiver", "Task $taskId is due!")
     }
 
     companion object {
