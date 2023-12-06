@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.fauzan.quest.R
 import com.fauzan.quest.ui.screen.AddTaskScreen
-import com.fauzan.quest.ui.screen.HomeScreen
+import com.fauzan.quest.ui.screen.home.HomeScreen
 
 sealed class Navigation(
     val route: String,

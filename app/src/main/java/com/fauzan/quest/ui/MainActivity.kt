@@ -1,4 +1,4 @@
-package com.fauzan.quest
+package com.fauzan.quest.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
