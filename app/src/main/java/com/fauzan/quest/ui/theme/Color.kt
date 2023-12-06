@@ -7,3 +7,5 @@ val BLACK = Color(0XFF1C0B0B)
 
 val RED = Color(0xFFFF6666)
 val YELLOW = Color(0xFFECA400)
+
+val RED_ALPHA = Color(0x22FF6666)

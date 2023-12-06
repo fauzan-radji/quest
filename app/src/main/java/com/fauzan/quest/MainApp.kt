@@ -8,8 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.fauzan.quest.navigation.Screen
-import com.fauzan.quest.ui.screen.HomeScreen
+import com.fauzan.quest.navigation.Navigation
+import com.fauzan.quest.ui.component.BottomBar
 
 @Composable
 fun MainApp(
@@ -17,15 +17,20 @@ fun MainApp(
     navController: NavHostController = rememberNavController()
 ) {
     Scaffold(
+        bottomBar = {
+            BottomBar(navController = navController)
+        },
         modifier = modifier
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = "home",
+            startDestination = Navigation.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Screen.Home.route) {
-                HomeScreen()
+            Navigation.items.forEach { navigation ->
+                composable(navigation.route) {
+                    navigation.screen()
+                }
             }
         }
     }

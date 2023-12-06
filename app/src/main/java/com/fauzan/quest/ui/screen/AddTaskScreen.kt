@@ -10,13 +10,13 @@ import androidx.compose.ui.res.stringResource
 import com.fauzan.quest.R
 
 @Composable
-fun HomeScreen(
+fun AddTaskScreen(
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Text(text = stringResource(R.string.home))
+        Text(text = stringResource(R.string.add_task))
     }
 }
