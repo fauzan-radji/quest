@@ -5,7 +5,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import com.fauzan.quest.data.model.RepeatingTask
+import com.fauzan.quest.data.model.OneTimeTask
 
 class AndroidAlarmScheduler(
     private val context: Context
@@ -13,7 +13,7 @@ class AndroidAlarmScheduler(
 
     private val alarmManager = context.getSystemService(AlarmManager::class.java)
     @SuppressLint("MissingPermission")
-    override fun schedule(task: RepeatingTask) {
+    override fun schedule(task: OneTimeTask) {
 
         val intent = Intent(context, AlarmReceiver::class.java).apply {
             putExtra(AlarmReceiver.EXTRA_TASK_ID, task.getId())
@@ -21,7 +21,7 @@ class AndroidAlarmScheduler(
 
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC,
-            task.getRepeatAtMillis(),
+            task.getDueDateMillis(),
             PendingIntent.getBroadcast(
                 context,
                 task.getId(),
@@ -31,7 +31,7 @@ class AndroidAlarmScheduler(
         )
     }
 
-    override fun cancel(task: RepeatingTask) {
+    override fun cancel(task: OneTimeTask) {
         alarmManager.cancel(
             PendingIntent.getBroadcast(
                 context,

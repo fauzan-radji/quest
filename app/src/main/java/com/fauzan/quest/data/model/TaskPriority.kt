@@ -4,9 +4,22 @@ import androidx.compose.ui.graphics.Color
 
 enum class TaskPriority(
     val color: Color,
-    val value: String
+    val value: String,
+    val weight: Int
 ) {
-    HIGH(Color(0xFFFF4444), "High"),
-    MEDIUM(Color(0xFFFF8800), "Medium"),
-    LOW(Color(0xFF00AA44), "Low")
+    HIGH(
+        color = Color(0xFFFF4444),
+        value ="High",
+        weight = 4
+    ),
+    MEDIUM(
+        color = Color(0xFFFF8800),
+        value = "Medium",
+        weight = 2
+    ),
+    LOW(
+        color = Color(0xFF00AA44),
+        value = "Low",
+        weight = 1
+    )
 }

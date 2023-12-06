@@ -104,7 +104,7 @@ fun TaskCard(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "Ring every ${task.getRepeatAt()}",
+                text = "Ring every ${task.getTriggerAt()}",
                 style = MaterialTheme.typography.bodyMedium
             )
         }
@@ -134,7 +134,8 @@ fun TaskCardPreview() {
                     title = "Do the laundry",
                     description = "Do the laundry and hang the clothes",
                     priority = TaskPriority.MEDIUM,
-                    repeatAtMillis = System.currentTimeMillis() + TimeUtils.ONE_SECOND * 10
+                    triggerAtMillis = System.currentTimeMillis() + TimeUtils.ONE_SECOND * 10,
+                    intervalMillis = TimeUtils.ONE_HOUR
                 ),
                 onClick = {  },
                 modifier = Modifier.fillMaxWidth()

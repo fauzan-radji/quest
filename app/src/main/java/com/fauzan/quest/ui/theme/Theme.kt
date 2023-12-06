@@ -29,7 +29,7 @@ private val DarkColorScheme = darkColorScheme(
     onBackground = WHITE,
 
     surface = RED_ALPHA,
-    onSurface = WHITE
+    onSurface = WHITE,
 )
 
 private val LightColorScheme = lightColorScheme(

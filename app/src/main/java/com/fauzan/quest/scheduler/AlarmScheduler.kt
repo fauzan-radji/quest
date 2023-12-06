@@ -1,8 +1,8 @@
 package com.fauzan.quest.scheduler
 
-import com.fauzan.quest.data.model.RepeatingTask
+import com.fauzan.quest.data.model.OneTimeTask
 
 interface AlarmScheduler {
-    fun schedule(task: RepeatingTask)
-    fun cancel(task: RepeatingTask)
+    fun schedule(task: OneTimeTask)
+    fun cancel(task: OneTimeTask)
 }

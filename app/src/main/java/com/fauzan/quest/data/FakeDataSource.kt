@@ -23,21 +23,23 @@ object FakeDataSource {
             title = "Do the laundry",
             description = "Do the laundry and hang the clothes",
             priority = TaskPriority.MEDIUM,
-            repeatAtMillis = System.currentTimeMillis() + ONE_SECOND * 10
+            triggerAtMillis = System.currentTimeMillis() + ONE_SECOND * 10,
+            intervalMillis = ONE_HOUR
         ),
         OneTimeTask(
             id = 3,
             title = "Buy groceries",
             description = "Buy groceries at the nearest supermarket",
             priority = TaskPriority.LOW,
-            dueDateMillis = System.currentTimeMillis() + ONE_HOUR
+            dueDateMillis = System.currentTimeMillis() + ONE_HOUR,
         ),
         RepeatingTask(
             id = 4,
             title = "Do the dishes",
             description = "Do the dishes and clean the kitchen",
             priority = TaskPriority.MEDIUM,
-            repeatAtMillis = System.currentTimeMillis() + ONE_SECOND * 20
+            triggerAtMillis = System.currentTimeMillis() + ONE_SECOND * 20,
+            intervalMillis = ONE_HOUR
         ),
         OneTimeTask(
             id = 5,
@@ -51,7 +53,8 @@ object FakeDataSource {
             title = "Water the plants",
             description = "Water the plants and give them fertilizer",
             priority = TaskPriority.LOW,
-            repeatAtMillis = System.currentTimeMillis() + ONE_SECOND * 30
+            triggerAtMillis = System.currentTimeMillis() + ONE_SECOND * 30,
+            intervalMillis = ONE_HOUR
         ),
         OneTimeTask(
             id = 7,
@@ -65,7 +68,8 @@ object FakeDataSource {
             title = "Do the laundry",
             description = "Do the laundry and hang the clothes",
             priority = TaskPriority.MEDIUM,
-            repeatAtMillis = System.currentTimeMillis() + ONE_SECOND * 40
+            triggerAtMillis = System.currentTimeMillis() + ONE_SECOND * 40,
+            intervalMillis = ONE_HOUR
         ),
         OneTimeTask(
             id = 9,
@@ -79,7 +83,8 @@ object FakeDataSource {
             title = "Do the dishes",
             description = "Do the dishes and clean the kitchen",
             priority = TaskPriority.MEDIUM,
-            repeatAtMillis = System.currentTimeMillis() + ONE_SECOND * 50
+            triggerAtMillis = System.currentTimeMillis() + ONE_SECOND * 50,
+            intervalMillis = ONE_HOUR
         ),
         OneTimeTask(
             id = 11,
@@ -93,7 +98,8 @@ object FakeDataSource {
             title = "Water the plants",
             description = "Water the plants and give them fertilizer",
             priority = TaskPriority.LOW,
-            repeatAtMillis = System.currentTimeMillis() + ONE_SECOND * 60
+            triggerAtMillis = System.currentTimeMillis() + ONE_SECOND * 60,
+            intervalMillis = ONE_HOUR
         ),
         OneTimeTask(
             id = 13,
@@ -107,7 +113,8 @@ object FakeDataSource {
             title = "Do the laundry",
             description = "Do the laundry and hang the clothes",
             priority = TaskPriority.MEDIUM,
-            repeatAtMillis = System.currentTimeMillis() + ONE_SECOND * 70
+            triggerAtMillis = System.currentTimeMillis() + ONE_SECOND * 70,
+            intervalMillis = ONE_HOUR
         ),
         OneTimeTask(
             id = 15,

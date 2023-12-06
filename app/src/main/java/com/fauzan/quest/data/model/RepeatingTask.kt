@@ -7,8 +7,16 @@ class RepeatingTask(
     title: String,
     description: String,
     priority: TaskPriority,
-    private var repeatAtMillis: Long,
+    private var triggerAtMillis: Long,
+    private var intervalMillis: Long
 ) : BaseTask(id, title, description, priority) {
-    fun getRepeatAtMillis() = repeatAtMillis
-    fun getRepeatAt() = TimeUtils.formatTime(repeatAtMillis)
+    fun getTriggerAtMillis() = triggerAtMillis
+    fun getIntervalMillis() = intervalMillis
+
+
+    fun getTriggerAt() = TimeUtils.formatTime(triggerAtMillis)
+    fun getInterval() = TimeUtils.formatTime(intervalMillis)
+    override fun calculateUrgency(): Int {
+        return 0
+    }
 }

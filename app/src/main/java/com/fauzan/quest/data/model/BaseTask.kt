@@ -11,4 +11,6 @@ abstract class BaseTask(
     fun getTitle() = title
     fun getDescription() = description
     fun getPriority() = priority
+
+    abstract fun calculateUrgency(): Int
 }
