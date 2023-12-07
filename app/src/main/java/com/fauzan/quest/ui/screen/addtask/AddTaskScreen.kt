@@ -29,6 +29,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.fauzan.quest.R
 import com.fauzan.quest.data.model.OneTimeTask
 import com.fauzan.quest.data.model.TaskPriority
@@ -47,6 +49,7 @@ import java.time.LocalTime
 fun AddTaskScreen(
     scheduleAlarm: (OneTimeTask) -> Unit,
     modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
     viewModel: AddTaskViewModel = viewModel(
         factory = ViewModelFactory(repository = Injection.provideRepository())
     )
@@ -69,6 +72,7 @@ fun AddTaskScreen(
         onDueTimeChange = { dueTime = it },
         onSave = {
             viewModel.addTask(scheduleAlarm = scheduleAlarm)
+            navController.navigateUp()
         },
         modifier = modifier.fillMaxSize()
     )

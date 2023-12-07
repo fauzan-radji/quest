@@ -35,7 +35,10 @@ fun MainApp(
                 HomeScreen()
             }
             composable(Navigation.AddTask.route) {
-                AddTaskScreen(scheduleAlarm = scheduleAlarm)
+                AddTaskScreen(
+                    scheduleAlarm = scheduleAlarm,
+                    navController = navController
+                )
             }
         }
     }
