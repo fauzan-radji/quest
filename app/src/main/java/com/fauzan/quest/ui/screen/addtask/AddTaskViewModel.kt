@@ -18,14 +18,17 @@ class AddTaskViewModel(val repository: Repository) : ViewModel() {
     var dueTime = mutableStateOf(LocalTime.now())
 
     fun addTask(scheduleAlarm: (OneTimeTask) -> Unit) {
+        val oneTimeTask = addTask()
+        scheduleAlarm(oneTimeTask)
+    }
+
+    private fun addTask(): OneTimeTask {
         val localDateTime = LocalDateTime.of(dueDate.value, dueTime.value)
-        val oneTimeTask = repository.addTask(
+        return repository.addTask(
             title = title.value,
             description = description.value,
             priority = priority.value ?: TaskPriority.LOW,
-            dueDateMillis = localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()
+            dueDateMillis = localDateTime.toInstant(ZoneOffset.ofHours(8)).toEpochMilli()
         )
-
-        scheduleAlarm(oneTimeTask)
     }
 }

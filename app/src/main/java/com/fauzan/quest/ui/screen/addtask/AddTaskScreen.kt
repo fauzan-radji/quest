@@ -19,7 +19,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -94,8 +93,10 @@ fun AddTaskContent(
     modifier: Modifier = Modifier
 ) {
     var dropdownExpanded by remember { mutableStateOf(false) }
-    val formattedDate by remember { derivedStateOf { TimeUtils.formatDate(dueDate) }}
-    val formattedTime by remember { derivedStateOf { TimeUtils.formatTime(dueTime) }}
+    var formattedDate by remember { mutableStateOf(TimeUtils.formatDate(dueDate)) }
+    var formattedTime by remember { mutableStateOf(TimeUtils.formatTime(dueTime)) }
+//    val formattedDate by remember { derivedStateOf { TimeUtils.formatDate(dueDate) }}
+//    val formattedTime by remember { derivedStateOf { TimeUtils.formatTime(dueTime) }}
     val dateDialogState = rememberMaterialDialogState()
     val timeDialogState = rememberMaterialDialogState()
 
@@ -155,7 +156,7 @@ fun AddTaskContent(
             }
             TextField(
                 value = formattedDate,
-                onValueChange = onTitleChange,
+                onValueChange = { formattedDate = it },
                 label = "Due Date",
                 readOnly = true,
                 modifier = Modifier.weight(1f)
@@ -178,7 +179,7 @@ fun AddTaskContent(
             }
             TextField(
                 value = formattedTime,
-                onValueChange = onTitleChange,
+                onValueChange = { formattedTime = it },
                 label = "Due Time",
                 readOnly = true,
                 modifier = Modifier.weight(1f)
@@ -195,12 +196,18 @@ fun AddTaskContent(
 
     DatePicker(
         state = dateDialogState,
-        onValueChange = onDueDateChange
+        onValueChange = {
+            onDueDateChange(it)
+            formattedDate = TimeUtils.formatDate(it)
+        }
     )
 
     TimePicker(
         state = timeDialogState,
-        onValueChange = onDueTimeChange
+        onValueChange = {
+            onDueTimeChange(it)
+            formattedTime = TimeUtils.formatTime(it)
+        }
     )
 }
 
