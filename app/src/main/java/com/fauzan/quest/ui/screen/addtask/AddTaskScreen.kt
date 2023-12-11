@@ -25,7 +25,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -34,11 +36,13 @@ import com.fauzan.quest.R
 import com.fauzan.quest.data.model.OneTimeTask
 import com.fauzan.quest.data.model.TaskPriority
 import com.fauzan.quest.di.Injection
+import com.fauzan.quest.scheduler.AndroidAlarmScheduler
 import com.fauzan.quest.ui.ViewModelFactory
 import com.fauzan.quest.ui.component.DatePicker
 import com.fauzan.quest.ui.component.Dropdown
 import com.fauzan.quest.ui.component.TextField
 import com.fauzan.quest.ui.component.TimePicker
+import com.fauzan.quest.ui.theme.QuestTheme
 import com.fauzan.quest.utils.TimeUtils
 import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import java.time.LocalDate
@@ -46,7 +50,6 @@ import java.time.LocalTime
 
 @Composable
 fun AddTaskScreen(
-    scheduleAlarm: (OneTimeTask) -> Unit,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     viewModel: AddTaskViewModel = viewModel(
@@ -58,19 +61,28 @@ fun AddTaskScreen(
     var priority by remember { viewModel.priority }
     var dueDate by remember { viewModel.dueDate }
     var dueTime by remember { viewModel.dueTime }
+    var intervalMillis by remember { viewModel.intervalMillis }
+
+    val context = LocalContext.current
+    val scheduler = AndroidAlarmScheduler(context)
+
     AddTaskContent(
         title = title,
         description = description,
         priority = priority,
         dueDate = dueDate,
         dueTime = dueTime,
+        intervalSeconds = intervalMillis / 1000,
         onTitleChange = { title = it },
         onDescriptionChange = { description = it },
         onPriorityChange = { priority = it },
         onDueDateChange = { dueDate = it },
         onDueTimeChange = { dueTime = it },
+        onIntervalSecondChange = { intervalMillis = it * 1000 },
         onSave = {
-            viewModel.addTask(scheduleAlarm = scheduleAlarm)
+            viewModel.addOneTimeTask { task: OneTimeTask ->
+                scheduler.schedule(task)
+            }
             navController.navigateUp()
         },
         modifier = modifier.fillMaxSize()
@@ -84,19 +96,19 @@ fun AddTaskContent(
     priority: TaskPriority?,
     dueDate: LocalDate,
     dueTime: LocalTime,
+    intervalSeconds: Long,
     onTitleChange: (String) -> Unit,
     onDescriptionChange: (String) -> Unit,
     onPriorityChange: (TaskPriority) -> Unit,
     onDueDateChange: (LocalDate) -> Unit,
     onDueTimeChange: (LocalTime) -> Unit,
+    onIntervalSecondChange: (Long) -> Unit,
     onSave: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var dropdownExpanded by remember { mutableStateOf(false) }
     var formattedDate by remember { mutableStateOf(TimeUtils.formatDate(dueDate)) }
     var formattedTime by remember { mutableStateOf(TimeUtils.formatTime(dueTime)) }
-//    val formattedDate by remember { derivedStateOf { TimeUtils.formatDate(dueDate) }}
-//    val formattedTime by remember { derivedStateOf { TimeUtils.formatTime(dueTime) }}
     val dateDialogState = rememberMaterialDialogState()
     val timeDialogState = rememberMaterialDialogState()
 
@@ -211,10 +223,10 @@ fun AddTaskContent(
     )
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//fun AddTaskPreview() {
-//    QuestTheme {
-//        AddTaskScreen()
-//    }
-//}
+@Preview(showBackground = true)
+@Composable
+fun AddTaskPreview() {
+    QuestTheme {
+        AddTaskScreen()
+    }
+}

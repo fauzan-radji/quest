@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.fauzan.quest.data.model.OneTimeTask
+import com.fauzan.quest.data.model.RepeatingTask
 
 class AndroidAlarmScheduler(
     private val context: Context
@@ -39,5 +40,13 @@ class AndroidAlarmScheduler(
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
         )
+    }
+
+    override fun schedule(task: RepeatingTask) {
+
+    }
+
+    override fun cancel(task: RepeatingTask) {
+
     }
 }

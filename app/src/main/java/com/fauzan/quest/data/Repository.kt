@@ -2,6 +2,7 @@ package com.fauzan.quest.data
 
 import com.fauzan.quest.data.model.BaseTask
 import com.fauzan.quest.data.model.OneTimeTask
+import com.fauzan.quest.data.model.RepeatingTask
 import com.fauzan.quest.data.model.TaskPriority
 
 class Repository {
@@ -14,6 +15,8 @@ class Repository {
     }
 
     fun getTasks() = tasks
+
+    fun getTask(id: Int) = tasks.find { it.getId() == id }
 
     fun addTask(
         title: String,
@@ -28,6 +31,26 @@ class Repository {
             description = description,
             priority = priority,
             dueDateMillis = dueDateMillis
+        )
+        tasks.add(task)
+        return task
+    }
+
+    fun addTask(
+        title: String,
+        description: String,
+        priority: TaskPriority,
+        triggerAtMillis: Long,
+        intervalMillis: Long
+    ): RepeatingTask {
+        val id = tasks.size + 1
+        val task = RepeatingTask(
+            id = id,
+            title = title,
+            description = description,
+            priority = priority,
+            triggerAtMillis = triggerAtMillis,
+            intervalMillis = intervalMillis
         )
         tasks.add(task)
         return task
